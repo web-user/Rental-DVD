@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 from rest_framework_jwt.views import refresh_jwt_token, obtain_jwt_token # accounts app
@@ -11,3 +12,7 @@ urlpatterns = [
     url(r'^jwt/$', obtain_jwt_token),
     url(r'^jwt/refresh/$', refresh_jwt_token),
 ]
+
+app_name = 'accounts'
+
+urlpatterns = format_suffix_patterns(urlpatterns)
