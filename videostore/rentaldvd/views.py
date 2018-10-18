@@ -31,6 +31,11 @@ class RentalRestApi(generics.ListAPIView, mixins.CreateModelMixin):
         return self.create(request, *args, **kwargs)
 
 
+class DvdListView(ListView):
+    template_name = 'home.html'
+    queryset = Dvd.objects.all()
+
+
 class DvdDetailView(DetailView):
     template_name = 'dvd_detail.html'
 

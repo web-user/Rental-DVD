@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Dvd, Rent
-
+from .models import Dvd
 
 class DvdAdmin(admin.ModelAdmin):
     list_display = ('title',)
@@ -12,16 +11,3 @@ class DvdAdmin(admin.ModelAdmin):
         model = Dvd
 
 admin.site.register(Dvd, DvdAdmin)
-
-
-class RentAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Rent._meta.fields]
-
-    class Meta:
-        model = Rent
-
-    def date_took(self, obj):
-        return obj.date.strftime('%d %b %Y %H:%M')
-    date_took.short_description = 'Date'
-
-admin.site.register(Rent, RentAdmin)

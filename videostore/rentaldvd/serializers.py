@@ -5,4 +5,4 @@ class DvdApiSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dvd
-        fields = ('id', 'title', 'content',)
+        fields = ('id', 'user', 'title', 'content', 'status', 'date_took', 'date_returned', )
