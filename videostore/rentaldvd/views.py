@@ -6,12 +6,33 @@ import django_filters
 from rest_framework import routers, serializers, viewsets, filters
 from rest_framework import generics, mixins
 
+
+
 from .serializers import DvdApiSerializer
 from .forms import DvdApiFilter
 from .models import Dvd
 
 
-class RentalRestApi(generics.ListAPIView, mixins.CreateModelMixin):
+
+class RentalAPIDetailView(
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.RetrieveAPIView):
+    serializer_class            = DvdApiSerializer
+    queryset                    = Dvd.objects.all()
+    lookup_field                = 'id'
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class RentalRestAPIView(generics.ListAPIView, mixins.CreateModelMixin):
     # permission_classes = (IsAuthenticated,)
     queryset = Dvd.objects.order_by('updated')
     serializer_class = DvdApiSerializer

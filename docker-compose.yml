@@ -1,0 +1,14 @@
+web:
+    build: videostore
+    command: sh -c 'cd videostore && gunicorn --workers=3 --bind 0.0.0.0:8000 videostore.wsgi:application --timeout 28'
+    volumes:
+        - .:/dockyard
+    expose:
+        - "8000"
+
+nginx:
+    build: nginx
+    ports:
+        - "8084:80"
+    links:
+        - web

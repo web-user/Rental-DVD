@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, get_user_model
+from django.shortcuts import redirect, render
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.db.models import Q
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
@@ -17,9 +18,10 @@ User = get_user_model()
 class AuthAPIView(APIView):
     # permission_classes      = [AnonPermissionOnly]
     def post(self, request, *args, **kwargs):
-        #print(request.user)
+        print(request.user.is_authenticated)
         if request.user.is_authenticated():
             return Response({'detail': 'You are already authenticated'}, status=400)
+
         data = request.data
         username = data.get('username') # username or email address
         password = data.get('password')
@@ -34,6 +36,9 @@ class AuthAPIView(APIView):
                 payload = jwt_payload_handler(user)
                 token = jwt_encode_handler(payload)
                 response = jwt_response_payload_handler(token, user, request=request)
+                user = authenticate(username=username, password=password)
+                print(user)
+                login(request, user)
                 return Response(response)
         return Response({"detail": "Invalid credentials"}, status=401)
 
@@ -45,3 +50,9 @@ class RegisterAPIView(generics.CreateAPIView):
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('rentaldvd:home'))
+    # Redirect to a success page.

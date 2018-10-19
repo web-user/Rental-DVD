@@ -1,31 +1,39 @@
-# django
+# Django
 
 
-1. `docker-compose up`
+`docker-compose up -d --force-recreate`
 
-2. `docker exec -it <container-id> bash`
+`docker exec -it <container-id> bash`
 
-3. `python manage.py makemigrations`
+`docker-compose run web python videostore/ makemigrations`
 
-   `python manage.py migrate`
+`docker-compose run web python videostore/y migrate`
+
+`docker-compose run web python videostore/ createsuperuser`
+
+`docker-compose run web python videostore/ collectstatic`
+
    
-   `python manage.py createsuperuser`
-   
-   `python manage.py collectstatic`
+`# Run test`
 
-   `python manage.py loaddata products/fixtures/products.json`
-   
-    `# Run just one test case`
-    
-    `$ ./manage.py test animals.tests.AnimalTestCase`
-    
-    `# Run just one test method`
-    
-    `$ ./manage.py test animals.tests.AnimalTestCase.test_animals_can_speak`
-   
-   `curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"title":"xyz123","content":"xyz-123 vvv"}' \
-  http://127.0.0.1:8085/rentaldvd/api/`
+`$ docker-compose run web python videostore/manage.py test`
+
+
+```
+curl --header "Content-Type: application/json" \
+--request POST \
+--data '{"title":"xyz123","content":"xyz-123 vvv"}' \
+http://0.0.0.0:8084/rentaldvd/api/
+```
   
-  http://127.0.0.1:8085/api/auth/register/
+
+`http://0.0.0.0:8084/`
+
+`http://0.0.0.0:8084/api/`
+`http://0.0.0.0:8084/api/1/`
+
+`http://0.0.0.0:8084/api/auth/register/`
+`http://0.0.0.0:8084/api/auth/login/`
+  
+
+ `docker-compose stop`
