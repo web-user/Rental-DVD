@@ -1,7 +1,7 @@
 appdirs==1.4.3
 certifi==2018.4.16
 chardet==3.0.4
-Django==1.8
+Django==1.11.23
 django-filter==1.1.0
 djangorestframework==3.1
 djangorestframework-jwt==1.11.0
