@@ -17,5 +17,5 @@ pyparsing==2.2.0
 python-dateutil==2.7.3
 pytz==2018.4
 requests==2.18.4
-urllib3==1.21.1
+urllib3==1.26.5
 django-simple-history==1.9.1
